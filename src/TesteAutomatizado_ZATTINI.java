@@ -24,7 +24,8 @@ public class TesteAutomatizado_ZATTINI extends BaseTest {
 	@Test
 	public void Zattini_IncluirProduto_Firefox() {
 	    
-		AbrirNavegador(browser[1], endereco);
+		AbrirNavegador(browser[2], endereco);
+		FecharNavegador(browser[2]);
 	    
 	}
 

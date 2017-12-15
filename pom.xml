@@ -18,10 +18,6 @@
   </build>
   <dependencies>
   	<dependency>
-  		<groupId>org.seleniumhq.webdriver</groupId>
-  		<artifactId>webdriver-selenium</artifactId>
-  	</dependency>
-  	<dependency>
   		<groupId>org.seleniumhq.selenium</groupId>
   		<artifactId>selenium-firefox-driver</artifactId>
   	</dependency>
@@ -40,12 +36,7 @@
   </dependencies>
   <dependencyManagement>
   	<dependencies>
-  		<dependency>
-  			<groupId>org.seleniumhq.webdriver</groupId>
-  			<artifactId>webdriver-selenium</artifactId>
-  			<version>0.9.7376</version>
-  		</dependency>
-  		<dependency>
+    	<dependency>
   			<groupId>org.seleniumhq.selenium</groupId>
   			<artifactId>selenium-firefox-driver</artifactId>
   			<version>3.8.1</version>
