@@ -1,74 +1,49 @@
-import java.util.Map;
-
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.ie.InternetExplorerOptions;
 
 
 public class BaseTest {
 
-	FirefoxDriver fDriver;
+	WebDriver fDriver;
 	ChromeDriver cDriver;
-	InternetExplorerDriver ieDriver;
-	
-	public BaseTest(){
+	WebDriver ieDriver;
 
-		System.setProperty("webdriver.gecko.driver", "C:\\geckodriver.exe");
-	}
+	JavascriptExecutor jse;
+
 
 	//Abrindo o navegador
 	protected void AbrirNavegador(String navegador, String endereco){		
-		
+
 		switch (navegador){
 		case "Firefox":
-			
-			/*FirefoxOptions optionFirefox = new FirefoxOptions();
-			optionFirefox.addArguments("test-type");
-			optionFirefox.addArguments("start-maximized");
-			optionFirefox.addArguments("--js-flags=--expose-gc");
-			optionFirefox.addArguments("--enable-precise-memory-info");
-			optionFirefox.addArguments("--disable-popup-blocking");
-			optionFirefox.addArguments("--disable-default-apps");
-			optionFirefox.addArguments("test-type=browser");
-			optionFirefox.addArguments("disable-infobars");*/
-			
-			fDriver = new FirefoxDriver(/*optionFirefox*/);
-			fDriver.get(endereco);
+
+			System.setProperty("webdriver.gecko.driver", "C:\\geckodriver.exe");
+			//System.setProperty("webdriver.firefox.marionette","C:\\geckodriver.exe");
+
+			fDriver = new FirefoxDriver();
+			fDriver.manage().window().maximize();
+			fDriver.navigate().to(endereco);
 			break;
 
 		case "Chrome":
-			
-			ChromeOptions optionChrome = new ChromeOptions();
-			optionChrome.addArguments("test-type");
-			optionChrome.addArguments("start-maximized");
-			optionChrome.addArguments("--js-flags=--expose-gc");
-			optionChrome.addArguments("--enable-precise-memory-info");
-			optionChrome.addArguments("--disable-popup-blocking");
-			optionChrome.addArguments("--disable-default-apps");
-			optionChrome.addArguments("test-type=browser");
-			optionChrome.addArguments("disable-infobars");
-			
-			cDriver = new ChromeDriver(optionChrome);
-			cDriver.get(endereco);
+
+			System.setProperty("webdriver.chrome.driver","C:\\chromedriver.exe");
+
+			cDriver = new ChromeDriver();
+			cDriver.manage().window().maximize();
+			cDriver.navigate().to(endereco);
 			break;
 
 		case "IE":
-			
-			InternetExplorerOptions optionIE = new InternetExplorerOptions(); 
-			optionIE.addCommandSwitches("test-type");
-			optionIE.addCommandSwitches("start-maximized");
-			optionIE.addCommandSwitches("--js-flags=--expose-gc");
-			optionIE.addCommandSwitches("--enable-precise-memory-info");
-			optionIE.addCommandSwitches("--disable-popup-blocking");
-			optionIE.addCommandSwitches("--disable-default-apps");
-			optionIE.addCommandSwitches("test-type=browser");
-			optionIE.addCommandSwitches("disable-infobars");
-			
-			ieDriver = new InternetExplorerDriver(optionIE);
-			ieDriver.get(endereco);
+
+			System.setProperty("webdriver.ie.driver", "C:\\IEDriverServer.exe");
+
+			ieDriver = new InternetExplorerDriver();
+			ieDriver.manage().window().maximize();
+			ieDriver.navigate().to(endereco);
 			break;
 		}
 	}
@@ -77,15 +52,59 @@ public class BaseTest {
 	protected void FecharNavegador(String navegador){
 		switch (navegador){
 		case "Firefox":
-			fDriver.quit();;
+			fDriver.close();
 			break;
 
 		case "Chrome":
-			cDriver.quit();
+			cDriver.close();
 			break;
 
 		case "IE":
-			ieDriver.quit();
+			ieDriver.close();
+			break;
+		}
+	}
+
+	//Rolando a tela para Baixo
+	protected void RolandoTelaScrollDown(String navegador, int parametro_Y){
+
+
+		switch (navegador){
+		case "Firefox":
+			jse = (JavascriptExecutor)fDriver;
+			jse.executeScript("window.scrollBy(0,250)", "");
+			break;
+
+		case "Chrome":
+			jse = (JavascriptExecutor)cDriver;
+			jse.executeScript("window.scrollBy(0, " + parametro_Y +")", "");
+			break;
+
+		case "IE":
+			jse = (JavascriptExecutor)ieDriver;
+			jse.executeScript("window.scrollBy(0,250)", "");
+			break;
+		}
+	}
+
+	//Rolando a tela para cima
+	protected void RolandoTelaScrollUp(String navegador){
+
+
+		switch (navegador){
+		case "Firefox":
+			jse = (JavascriptExecutor)fDriver;
+			jse.executeScript("window.scrollBy(0,-250)", "");
+			break;
+
+		case "Chrome":
+			jse = (JavascriptExecutor)cDriver;
+			jse.executeScript("window.scrollBy(0,-250)", "");
+			break;
+
+		case "IE":
+			jse = (JavascriptExecutor)ieDriver;
+			jse.executeScript("window.scrollBy(0,-250)", "");
 			break;
 		}
 	}
