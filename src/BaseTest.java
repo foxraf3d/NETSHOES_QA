@@ -108,4 +108,14 @@ public class BaseTest {
 			break;
 		}
 	}
+	
+	//Esperar Carregamento de Tela
+	protected void EsperaCarregamento(long tempo){
+		try {
+			Thread.sleep(tempo);
+		} catch (InterruptedException e) {
+			String erro = e.getMessage();
+			e.printStackTrace();
+		}
+	}
 }
